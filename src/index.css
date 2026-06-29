@@ -1,0 +1,63 @@
+:root {
+  --ink: #1a2233;
+  --muted: #5b6678;
+  --line: #e2e6ee;
+  --brand: #2b5ce6;
+  --soft: #f5f7fb;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Segoe UI", -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  background: #fafbfd;
+}
+.app { max-width: 960px; margin: 0 auto; padding: 24px 20px 60px; }
+.app-header h1 { font-size: 20px; margin: 0 0 4px; }
+.hint { color: var(--muted); font-size: 13px; margin: 0 0 16px; max-width: 60ch; }
+
+.cats { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; }
+.cats-label { color: var(--muted); font-size: 13px; }
+.cat {
+  border: 1px solid var(--line); background: #fff; color: var(--ink);
+  padding: 5px 14px; border-radius: 20px; cursor: pointer; font-size: 13px;
+}
+.cat.active { background: var(--brand); color: #fff; border-color: var(--brand); }
+
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (max-width: 760px) { .columns { grid-template-columns: 1fr; } }
+
+.panel {
+  border: 1px solid var(--line); border-radius: 12px; padding: 16px;
+  background: #fff;
+}
+.panel h2 { font-size: 14px; margin: 0 0 12px; }
+
+.control {
+  width: 100%; padding: 8px 10px; border: 1px solid var(--line);
+  border-radius: 8px; font-size: 14px; margin-bottom: 12px;
+}
+
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.card {
+  border: 1px solid var(--line); border-radius: 10px; padding: 10px;
+  cursor: pointer; text-align: center; position: relative; background: var(--soft);
+}
+.card:hover { border-color: var(--brand); }
+.card img { width: 64px; height: 64px; object-fit: cover; border-radius: 8px; }
+.card .name { font-size: 13px; font-weight: 600; margin-top: 6px; }
+.card .price { font-size: 12px; color: var(--muted); }
+.badge {
+  position: absolute; top: 6px; right: 6px; background: #1f8a4c; color: #fff;
+  font-size: 10px; padding: 2px 6px; border-radius: 10px;
+}
+
+.menu {
+  border: 1px solid var(--line); border-radius: 8px; overflow: hidden;
+  box-shadow: 0 6px 18px rgba(20, 30, 60, 0.08);
+}
+.option { padding: 8px 10px; cursor: pointer; font-size: 14px; }
+.option:hover { background: var(--soft); }
+.option.muted { color: var(--muted); cursor: default; }
+
+.selected { margin-top: 16px; font-size: 13px; color: var(--muted); }
