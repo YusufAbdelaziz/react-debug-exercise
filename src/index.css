@@ -12,52 +12,64 @@ body {
   color: var(--ink);
   background: #fafbfd;
 }
-.app { max-width: 960px; margin: 0 auto; padding: 24px 20px 60px; }
+.app { max-width: 900px; margin: 0 auto; padding: 24px 20px 60px; }
 .app-header h1 { font-size: 20px; margin: 0 0 4px; }
-.hint { color: var(--muted); font-size: 13px; margin: 0 0 16px; max-width: 60ch; }
+.hint { color: var(--muted); font-size: 13px; margin: 0 0 18px; max-width: 72ch; }
 
-.cats { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; }
-.cats-label { color: var(--muted); font-size: 13px; }
-.cat {
+.challenge-list { display: block; }
+
+/* ── challenge card ── */
+.bug { border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin: 0 0 18px; background: #fff; }
+.bug-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.bug-n {
+  width: 24px; height: 24px; border-radius: 50%; background: var(--brand); color: #fff;
+  display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700;
+}
+.bug-head h3 { font-size: 15px; margin: 0; }
+.sev { font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 10px; background: #eef2fb; color: #33405a; }
+.sev-med { background: #eef2fb; color: #33405a; }
+
+.switch { margin-left: auto; display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.sw { border: 0; background: #fff; padding: 5px 12px; cursor: pointer; font-size: 12px; color: var(--muted); }
+.sw.on-bad { background: #c0392b; color: #fff; }
+.sw.on-good { background: #1f8a4c; color: #fff; }
+
+.try { font-size: 13px; margin: 6px 0; }
+.why { font-size: 13px; color: #33405a; margin: 10px 0 6px; }
+.muted { color: var(--muted); }
+.small { font-size: 11px; }
+.small code { background: #eef1f7; padding: 1px 5px; border-radius: 4px; }
+
+/* ── live demo area ── */
+.demo { position: relative; border: 1px dashed var(--line); border-radius: 10px; padding: 18px 14px 14px; margin: 8px 0; background: var(--soft); }
+.demo-bad { border-color: #eab8b8; background: #fdf5f4; }
+.demo-good { border-color: #b6e0c4; background: #f4faf6; }
+.demo-tag { position: absolute; top: -9px; left: 12px; font-size: 9px; font-weight: 700; letter-spacing: .05em; padding: 1px 8px; border-radius: 8px; }
+.demo-bad .demo-tag { background: #c0392b; color: #fff; }
+.demo-good .demo-tag { background: #1f8a4c; color: #fff; }
+.demo p { margin: 8px 0; font-size: 14px; }
+
+/* generic controls inside demos, so challenge files can use plain <button>/<input> */
+.demo button {
   border: 1px solid var(--line); background: #fff; color: var(--ink);
-  padding: 5px 14px; border-radius: 20px; cursor: pointer; font-size: 13px;
+  padding: 5px 12px; border-radius: 8px; cursor: pointer; font-size: 13px; margin-right: 6px;
 }
-.cat.active { background: var(--brand); color: #fff; border-color: var(--brand); }
-
-.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-@media (max-width: 760px) { .columns { grid-template-columns: 1fr; } }
-
-.panel {
-  border: 1px solid var(--line); border-radius: 12px; padding: 16px;
-  background: #fff;
+.demo button:hover { border-color: var(--brand); }
+.demo input {
+  padding: 6px 9px; border: 1px solid var(--line); border-radius: 6px; font-size: 13px;
 }
-.panel h2 { font-size: 14px; margin: 0 0 12px; }
+.demo .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 6px 0; }
+.demo ul { margin: 6px 0; padding-left: 18px; }
+.demo strong { color: var(--ink); }
 
-.control {
-  width: 100%; padding: 8px 10px; border: 1px solid var(--line);
-  border-radius: 8px; font-size: 14px; margin-bottom: 12px;
+/* before/after code compare (solution toggle) */
+.cc { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px; }
+@media (max-width: 720px) { .cc { grid-template-columns: 1fr; } }
+.cc-col { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.cc-head { font-size: 11px; font-weight: 700; padding: 5px 10px; }
+.cc-bad .cc-head { background: #fdf0ee; color: #c0392b; }
+.cc-good .cc-head { background: #eef8f1; color: #1f8a4c; }
+.cc pre {
+  margin: 0; padding: 10px; font-size: 11px; line-height: 1.5; background: #1f2533; color: #e7ecf5;
+  font-family: "Cascadia Code", Consolas, "Courier New", monospace; overflow: auto; white-space: pre;
 }
-
-.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.card {
-  border: 1px solid var(--line); border-radius: 10px; padding: 10px;
-  cursor: pointer; text-align: center; position: relative; background: var(--soft);
-}
-.card:hover { border-color: var(--brand); }
-.card img { width: 64px; height: 64px; object-fit: cover; border-radius: 8px; }
-.card .name { font-size: 13px; font-weight: 600; margin-top: 6px; }
-.card .price { font-size: 12px; color: var(--muted); }
-.badge {
-  position: absolute; top: 6px; right: 6px; background: #1f8a4c; color: #fff;
-  font-size: 10px; padding: 2px 6px; border-radius: 10px;
-}
-
-.menu {
-  border: 1px solid var(--line); border-radius: 8px; overflow: hidden;
-  box-shadow: 0 6px 18px rgba(20, 30, 60, 0.08);
-}
-.option { padding: 8px 10px; cursor: pointer; font-size: 14px; }
-.option:hover { background: var(--soft); }
-.option.muted { color: var(--muted); cursor: default; }
-
-.selected { margin-top: 16px; font-size: 13px; color: var(--muted); }
