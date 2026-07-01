@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 // TICKET — Shopping cart
 // Expected: the +/− buttons change an item's quantity and the Total updates.
@@ -8,8 +8,8 @@ import { useState } from 'react';
 type Item = { id: string; name: string; price: number; qty: number };
 
 const INITIAL: Item[] = [
-  { id: 'a', name: 'Coffee', price: 3, qty: 1 },
-  { id: 'b', name: 'Bagel', price: 2, qty: 2 },
+  { id: "a", name: "Coffee", price: 3, qty: 1 },
+  { id: "b", name: "Bagel", price: 2, qty: 2 },
 ];
 
 export default function Challenge1() {
@@ -29,11 +29,13 @@ export default function Challenge1() {
         <div className="row" key={i.id}>
           <span style={{ width: 80 }}>{i.name}</span>
           <button onClick={() => changeQty(i.id, -1)}>−</button>
-          <span style={{ width: 20, textAlign: 'center' }}>{i.qty}</span>
+          <span style={{ width: 20, textAlign: "center" }}>{i.qty}</span>
           <button onClick={() => changeQty(i.id, +1)}>+</button>
         </div>
       ))}
-      <p>Total: <strong>${total}</strong></p>
+      <p>
+        Total: <strong>${total}</strong>
+      </p>
     </div>
   );
 }

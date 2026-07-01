@@ -4,17 +4,44 @@
   --line: #e2e6ee;
   --brand: #2b5ce6;
   --soft: #f5f7fb;
+  --bg: #fafbfd;
+  --card: #ffffff;
+  --btn: #ffffff;
+  color-scheme: light;
 }
+:root[data-theme='dark'] {
+  --ink: #e6ebf5;
+  --muted: #9aa6bd;
+  --line: #2b3446;
+  --brand: #6f9bff;
+  --soft: #141b28;
+  --bg: #0e1320;
+  --card: #161d2b;
+  --btn: #1c2536;
+  color-scheme: dark;
+}
+
 * { box-sizing: border-box; }
 body {
   margin: 0;
   font-family: "Segoe UI", -apple-system, Roboto, Helvetica, Arial, sans-serif;
   color: var(--ink);
-  background: #fafbfd;
+  background: var(--bg);
 }
+body, .bug, .demo, .theme-btn, .cat, .chip, .sw, .demo button, .demo input, .sev, .rb {
+  transition: background-color .2s ease, border-color .2s ease, color .2s ease;
+}
+
 .app { max-width: 900px; margin: 0 auto; padding: 24px 20px 60px; }
+.header-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .app-header h1 { font-size: 20px; margin: 0 0 4px; }
 .hint { color: var(--muted); font-size: 13px; margin: 0 0 18px; max-width: 72ch; }
+
+.theme-btn {
+  border: 1px solid var(--line); background: var(--btn); color: var(--ink);
+  padding: 5px 12px; border-radius: 8px; cursor: pointer; font-size: 13px; white-space: nowrap;
+}
+.theme-btn:hover { border-color: var(--brand); }
 
 .challenge-list { display: block; }
 
@@ -23,16 +50,16 @@ body {
   color: var(--muted); border-top: 1px solid var(--line); padding-top: 16px;
 }
 
-/* render-count badge used inside composed demos */
 .rb {
   display: inline-block; font-size: 10px; color: #5b3fc0; background: #f1eefc;
   border: 1px solid #ddd4f4; padding: 1px 7px; border-radius: 8px; margin-bottom: 6px;
   font-family: "Cascadia Code", Consolas, monospace;
 }
+:root[data-theme='dark'] .rb { color: #b9a5ff; background: #201a33; border-color: #3a2f5a; }
 .demo .rb + div, .demo .rb + p { margin-top: 4px; }
 
 /* ── challenge card ── */
-.bug { border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin: 0 0 18px; background: #fff; }
+.bug { border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin: 0 0 18px; background: var(--card); }
 .bug-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
 .bug-n {
   width: 24px; height: 24px; border-radius: 50%; background: var(--brand); color: #fff;
@@ -43,22 +70,28 @@ body {
 .sev-medium { background: #e9f7ee; color: #1f8a4c; }
 .sev-hard { background: #fff3e0; color: #b9770e; }
 .sev-expert { background: #fde9ee; color: #c0392b; }
+:root[data-theme='dark'] .sev { background: #222c40; color: #c7d2e8; }
+:root[data-theme='dark'] .sev-medium { background: #16281d; color: #5fcf84; }
+:root[data-theme='dark'] .sev-hard { background: #2c2312; color: #e0af68; }
+:root[data-theme='dark'] .sev-expert { background: #2c161c; color: #f28ca0; }
 
 .switch { margin-left: auto; display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
-.sw { border: 0; background: #fff; padding: 5px 12px; cursor: pointer; font-size: 12px; color: var(--muted); }
+.sw { border: 0; background: var(--btn); padding: 5px 12px; cursor: pointer; font-size: 12px; color: var(--muted); }
 .sw.on-bad { background: #c0392b; color: #fff; }
 .sw.on-good { background: #1f8a4c; color: #fff; }
 
 .try { font-size: 13px; margin: 6px 0; }
-.why { font-size: 13px; color: #33405a; margin: 10px 0 6px; }
+.why { font-size: 13px; color: var(--ink); margin: 10px 0 6px; }
 .muted { color: var(--muted); }
 .small { font-size: 11px; }
-.small code { background: #eef1f7; padding: 1px 5px; border-radius: 4px; }
+.small code { background: var(--soft); border: 1px solid var(--line); padding: 1px 5px; border-radius: 4px; }
 
 /* ── live demo area ── */
 .demo { position: relative; border: 1px dashed var(--line); border-radius: 10px; padding: 18px 14px 14px; margin: 8px 0; background: var(--soft); }
 .demo-bad { border-color: #eab8b8; background: #fdf5f4; }
 .demo-good { border-color: #b6e0c4; background: #f4faf6; }
+:root[data-theme='dark'] .demo-bad { border-color: #5a2f36; background: #241519; }
+:root[data-theme='dark'] .demo-good { border-color: #2f5a3f; background: #142019; }
 .demo-tag { position: absolute; top: -9px; left: 12px; font-size: 9px; font-weight: 700; letter-spacing: .05em; padding: 1px 8px; border-radius: 8px; }
 .demo-bad .demo-tag { background: #c0392b; color: #fff; }
 .demo-good .demo-tag { background: #1f8a4c; color: #fff; }
@@ -66,24 +99,27 @@ body {
 
 /* generic controls inside demos, so challenge files can use plain <button>/<input> */
 .demo button {
-  border: 1px solid var(--line); background: #fff; color: var(--ink);
+  border: 1px solid var(--line); background: var(--btn); color: var(--ink);
   padding: 5px 12px; border-radius: 8px; cursor: pointer; font-size: 13px; margin-right: 6px;
 }
 .demo button:hover { border-color: var(--brand); }
-.demo input {
+.demo input:not([type="checkbox"]) {
   padding: 6px 9px; border: 1px solid var(--line); border-radius: 6px; font-size: 13px;
+  background: var(--card); color: var(--ink);
 }
 .demo .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 6px 0; }
 .demo ul { margin: 6px 0; padding-left: 18px; }
 .demo strong { color: var(--ink); }
 
-/* before/after code compare (solution toggle) */
+/* before/after code compare (solution toggle) — code stays dark in both themes */
 .cc { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px; }
 @media (max-width: 720px) { .cc { grid-template-columns: 1fr; } }
 .cc-col { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
 .cc-head { font-size: 11px; font-weight: 700; padding: 5px 10px; }
 .cc-bad .cc-head { background: #fdf0ee; color: #c0392b; }
 .cc-good .cc-head { background: #eef8f1; color: #1f8a4c; }
+:root[data-theme='dark'] .cc-bad .cc-head { background: #241519; color: #f28ca0; }
+:root[data-theme='dark'] .cc-good .cc-head { background: #142019; color: #5fcf84; }
 .cc pre {
   margin: 0; padding: 10px; font-size: 11px; line-height: 1.5; background: #1f2533; color: #e7ecf5;
   font-family: "Cascadia Code", Consolas, "Courier New", monospace; overflow: auto; white-space: pre;
