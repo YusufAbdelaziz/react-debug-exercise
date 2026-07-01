@@ -17,7 +17,9 @@ export default function ChallengeCard({ c }: { c: Challenge }) {
       <div className="bug-head">
         <span className="bug-n">{c.n}</span>
         <h3>{c.title}</h3>
-        <span className={`sev sev-${c.difficulty.toLowerCase()}`}>{c.difficulty}</span>
+        {hasSolution && (
+          <span className={`sev sev-${c.difficulty.toLowerCase()}`}>{c.difficulty}</span>
+        )}
         {hasSolution && (
           <div className="switch" role="group" aria-label="candidate or solution">
             <button className={!showSolution ? 'sw on-bad' : 'sw'} onClick={() => setShowSolution(false)}>
