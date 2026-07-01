@@ -10,9 +10,17 @@ import C3 from './challenge-3';
 import C4 from './challenge-4';
 import C5 from './challenge-5';
 import C6 from './challenge-6';
+import CM1 from './composed-1';
+import CM2 from './composed-2';
+import CM3 from './composed-3';
+import CM4 from './composed-4';
+import CM5 from './composed-5';
+import CM6 from './composed-6';
+import CM7 from './composed-7';
 
 export type Challenge = {
   n: number;
+  group: string;
   title: string;
   difficulty: 'Medium' | 'Hard' | 'Expert';
   file: string;
@@ -27,59 +35,100 @@ export type Challenge = {
   after?: string;
 };
 
+const SINGLE = 'Single-component';
+const COMPOSED = 'Composed — trace the bug across components';
+
 export const challenges: Challenge[] = [
   {
-    n: 1,
-    title: 'Shopping cart',
-    difficulty: 'Medium',
+    n: 1, group: SINGLE, title: 'Shopping cart', difficulty: 'Medium',
     file: 'src/challenges/challenge-1.tsx',
     expected: 'The +/− buttons change an item’s quantity and the Total updates.',
     actual: 'Clicking them does nothing on screen.',
     Buggy: C1,
   },
   {
-    n: 2,
-    title: 'User search',
-    difficulty: 'Medium',
+    n: 2, group: SINGLE, title: 'User search', difficulty: 'Medium',
     file: 'src/challenges/challenge-2.tsx',
     expected: 'Results always match the text currently in the box.',
     actual: 'Typing quickly sometimes shows stale results for an earlier keystroke.',
     Buggy: C2,
   },
   {
-    n: 3,
-    title: 'Live metric',
-    difficulty: 'Hard',
+    n: 3, group: SINGLE, title: 'Live metric', difficulty: 'Hard',
     file: 'src/challenges/challenge-3.tsx',
     expected: 'Each second the value increases by the currently-selected multiplier.',
     actual: 'After changing the multiplier, it keeps using the original ×1.',
     Buggy: C3,
   },
   {
-    n: 4,
-    title: 'Directory',
-    difficulty: 'Hard',
+    n: 4, group: SINGLE, title: 'Directory', difficulty: 'Hard',
     file: 'src/challenges/challenge-4.tsx',
     expected: 'After filtering, “Select” highlights the person on that row.',
     actual: 'With a filter active, “Select” highlights the wrong person.',
     Buggy: C4,
   },
   {
-    n: 5,
-    title: 'Todo list',
-    difficulty: 'Hard',
+    n: 5, group: SINGLE, title: 'Todo list', difficulty: 'Hard',
     file: 'src/challenges/challenge-5.tsx',
     expected: '“Items left” always equals the number of unchecked todos.',
     actual: 'Toggling a todo works, but “Items left” never changes.',
     Buggy: C5,
   },
   {
-    n: 6,
-    title: 'Auto-save',
-    difficulty: 'Expert',
+    n: 6, group: SINGLE, title: 'Auto-save', difficulty: 'Expert',
     file: 'src/challenges/challenge-6.tsx',
     expected: '600ms after you stop typing, “Auto-saved” shows exactly what’s in the box.',
     actual: 'It saves stale text — roughly one keystroke behind.',
     Buggy: C6,
+  },
+
+  {
+    n: 7, group: COMPOSED, title: 'Store page', difficulty: 'Hard',
+    file: 'src/challenges/composed-1.tsx',
+    expected: 'Typing in Search should not re-render the Catalog (watch its renders badge).',
+    actual: 'Every keystroke re-renders the Catalog too.',
+    Buggy: CM1,
+  },
+  {
+    n: 8, group: COMPOSED, title: 'Picker', difficulty: 'Hard',
+    file: 'src/challenges/composed-2.tsx',
+    expected: 'Typing in the note field should not re-render the memoized List.',
+    actual: 'The List re-renders on every keystroke despite React.memo.',
+    Buggy: CM2,
+  },
+  {
+    n: 9, group: COMPOSED, title: 'Filterable list', difficulty: 'Hard',
+    file: 'src/challenges/composed-3.tsx',
+    expected: 'Typing in the toolbar filters the results below.',
+    actual: 'The box updates but the results never change.',
+    Buggy: CM3,
+  },
+  {
+    n: 10, group: COMPOSED, title: 'Todo app (reducer)', difficulty: 'Hard',
+    file: 'src/challenges/composed-4.tsx',
+    expected: 'Add and toggle update the list and the “left” count.',
+    actual: 'Clicking Add or a checkbox does nothing on screen.',
+    Buggy: CM4,
+  },
+  {
+    n: 11, group: COMPOSED, title: 'Dashboard bump', difficulty: 'Expert',
+    file: 'src/challenges/composed-5.tsx',
+    expected: 'Clicking “Bump” increases the count by 1 each time.',
+    actual: 'No matter how often you click, the count only ever shows 1.',
+    Buggy: CM5,
+  },
+  {
+    n: 12, group: COMPOSED, title: 'User + posts', difficulty: 'Expert',
+    file: 'src/challenges/composed-6.tsx',
+    expected: 'Posts re-fetch only when you switch users (watch the fetches counter).',
+    actual: 'Posts re-fetch constantly, even when the user hasn’t changed.',
+    Buggy: CM6,
+  },
+  {
+    n: 13, group: COMPOSED, title: 'Two widgets', difficulty: 'Expert',
+    file: 'src/challenges/composed-7.tsx',
+    expected: 'The Likes and Follows counters are completely independent.',
+    actual: 'Clicking one also changes the other.',
+    Buggy: CM7,
   },
 ];

@@ -18,6 +18,19 @@ body {
 
 .challenge-list { display: block; }
 
+.group-head {
+  margin: 26px 0 12px; font-size: 12px; text-transform: uppercase; letter-spacing: .07em;
+  color: var(--muted); border-top: 1px solid var(--line); padding-top: 16px;
+}
+
+/* render-count badge used inside composed demos */
+.rb {
+  display: inline-block; font-size: 10px; color: #5b3fc0; background: #f1eefc;
+  border: 1px solid #ddd4f4; padding: 1px 7px; border-radius: 8px; margin-bottom: 6px;
+  font-family: "Cascadia Code", Consolas, monospace;
+}
+.demo .rb + div, .demo .rb + p { margin-top: 4px; }
+
 /* ── challenge card ── */
 .bug { border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin: 0 0 18px; background: #fff; }
 .bug-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
