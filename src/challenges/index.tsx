@@ -17,6 +17,10 @@ import CM4 from './composed-4';
 import CM5 from './composed-5';
 import CM6 from './composed-6';
 import CM7 from './composed-7';
+import B1 from './build-1';
+import B2 from './build-2';
+import B3 from './build-3';
+import B4 from './build-4';
 
 export type Challenge = {
   n: number;
@@ -24,8 +28,12 @@ export type Challenge = {
   title: string;
   difficulty: 'Medium' | 'Hard' | 'Expert';
   file: string;
-  expected: string;
-  actual: string;
+  kind?: 'debug' | 'build';
+  // debug challenges use expected/actual; build challenges use task/requirements:
+  expected?: string;
+  actual?: string;
+  task?: string;
+  requirements?: string[];
   Buggy: ComponentType;
   // solution-only (undefined on main):
   Solution?: ComponentType;
@@ -33,10 +41,12 @@ export type Challenge = {
   why?: string;
   before?: string;
   after?: string;
+  notes?: string;
 };
 
 const SINGLE = 'Single-component';
 const COMPOSED = 'Composed — trace the bug across components';
+const BUILD = 'Build & Refactor — implement / refactor / type';
 
 export const challenges: Challenge[] = [
   {
@@ -130,5 +140,55 @@ export const challenges: Challenge[] = [
     expected: 'The Likes and Follows counters are completely independent.',
     actual: 'Clicking one also changes the other.',
     Buggy: CM7,
+  },
+
+  {
+    n: 14, group: BUILD, title: 'Autocomplete', difficulty: 'Expert', kind: 'build',
+    file: 'src/challenges/build-1.tsx',
+    task: 'Build a working autocomplete from scratch using the provided fake API.',
+    requirements: [
+      'Debounce the query (~300ms) — don’t fetch on every keystroke',
+      'Cancel/ignore stale requests so out-of-order responses can’t win',
+      'Show a results dropdown; clicking an option fills the input',
+      'Keyboard: ↑/↓ to move, Enter to select, Esc to close',
+      'Accessible: combobox/listbox/option roles + aria-expanded/activedescendant',
+    ],
+    Buggy: B1,
+  },
+  {
+    n: 15, group: BUILD, title: 'Data table', difficulty: 'Hard', kind: 'build',
+    file: 'src/challenges/build-2.tsx',
+    task: 'Make the table sortable, filterable, and paginated.',
+    requirements: [
+      'Click a column header to sort by it; click again to reverse',
+      'A text box filters by name (case-insensitive)',
+      'Paginate 5 rows/page with Prev/Next, disabled at the ends, and “Page x/y”',
+      'Filtering resets to the first page; derive rows (don’t mutate the source)',
+    ],
+    Buggy: B2,
+  },
+  {
+    n: 16, group: BUILD, title: 'Refactor: team directory', difficulty: 'Expert', kind: 'build',
+    file: 'src/challenges/build-3.tsx',
+    task: 'Refactor this working “god component” without changing its behaviour.',
+    requirements: [
+      'Extract the fetch/loading into a custom hook',
+      'Compute the filtered list once — remove the duplicated filter expressions',
+      'Split the detail panel (and/or the list) into its own component',
+      'Replace the inline styles with a class; behaviour must stay identical',
+    ],
+    Buggy: B3,
+  },
+  {
+    n: 17, group: BUILD, title: 'Type-safe helpers', difficulty: 'Hard', kind: 'build',
+    file: 'src/challenges/build-4.tsx',
+    task: 'Replace the `any` types so invalid usage becomes a compile error (check the editor’s TS problems).',
+    requirements: [
+      'Make `getColumn` generic: the key must be a real key of the row type',
+      'Its return type is the value type (e.g. string[]), not any[]',
+      'Type `<DataList>` generically over its item type (items + render)',
+      'The // @ts-expect-error line must become valid (no leftover TS errors)',
+    ],
+    Buggy: B4,
   },
 ];

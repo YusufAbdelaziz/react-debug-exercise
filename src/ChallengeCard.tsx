@@ -32,8 +32,21 @@ export default function ChallengeCard({ c }: { c: Challenge }) {
         )}
       </div>
 
-      <p className="try"><strong>Expected:</strong> {c.expected}</p>
-      <p className="try"><strong>Actual:</strong> {c.actual}</p>
+      {c.kind === 'build' ? (
+        <>
+          <p className="try"><strong>Task:</strong> {c.task}</p>
+          {c.requirements && (
+            <ul className="reqs">
+              {c.requirements.map((r, i) => <li key={i}>{r}</li>)}
+            </ul>
+          )}
+        </>
+      ) : (
+        <>
+          <p className="try"><strong>Expected:</strong> {c.expected}</p>
+          <p className="try"><strong>Actual:</strong> {c.actual}</p>
+        </>
+      )}
       <p className="muted small">
         Edit <code>{c.file}</code> and save — this demo hot-reloads instantly.
       </p>
@@ -48,6 +61,7 @@ export default function ChallengeCard({ c }: { c: Challenge }) {
           {c.concept && <p className="why"><strong>Concept:</strong> {c.concept}</p>}
           {c.why && <p className="why"><strong>Why:</strong> {c.why}</p>}
           {c.before && c.after && <CodeCompare before={c.before} after={c.after} />}
+          {c.notes && <p className="notes"><strong>Interviewer — what to look for:</strong> {c.notes}</p>}
         </>
       )}
     </section>

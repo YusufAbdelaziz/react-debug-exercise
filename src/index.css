@@ -81,7 +81,18 @@ body, .bug, .demo, .theme-btn, .cat, .chip, .sw, .demo button, .demo input, .sev
 .sw.on-good { background: #1f8a4c; color: #fff; }
 
 .try { font-size: 13px; margin: 6px 0; }
+.reqs { margin: 4px 0 8px 18px; font-size: 12px; color: var(--muted); }
+.reqs li { margin: 3px 0; }
 .why { font-size: 13px; color: var(--ink); margin: 10px 0 6px; }
+.notes {
+  font-size: 13px; margin: 10px 0 2px; padding: 8px 11px; border-radius: 0 6px 6px 0;
+  border-left: 3px solid var(--brand); background: var(--soft); color: var(--ink);
+}
+
+/* table used by the Data table build challenge */
+.tbl { border-collapse: collapse; font-size: 13px; margin-top: 4px; }
+.tbl th, .tbl td { border: 1px solid var(--line); padding: 5px 10px; text-align: left; }
+.tbl th { background: var(--soft); cursor: pointer; user-select: none; white-space: nowrap; }
 .muted { color: var(--muted); }
 .small { font-size: 11px; }
 .small code { background: var(--soft); border: 1px solid var(--line); padding: 1px 5px; border-radius: 4px; }
