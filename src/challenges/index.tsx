@@ -1,24 +1,27 @@
 import type { ComponentType } from 'react';
 
-// Candidate registry (main branch): buggy components only, no solutions.
-// The `solution` branch replaces this file to add Solution + explanations,
-// which turns on the per-card Candidate/Solution toggle.
+// Candidate registry (main branch): buggy components + a behaviour "ticket"
+// only. It intentionally does NOT name the concept, cause, or fix — those live
+// on the `solution` branch, which replaces this file and turns on the toggle.
 
-import C01 from './01-immutable-state';
-import C02 from './02-effect-deps';
-import C03 from './03-controlled-input';
-import C04 from './04-stale-closure';
-import C05 from './05-list-keys';
-import C06 from './06-conditional-render';
+import C1 from './challenge-1';
+import C2 from './challenge-2';
+import C3 from './challenge-3';
+import C4 from './challenge-4';
+import C5 from './challenge-5';
+import C6 from './challenge-6';
 
 export type Challenge = {
   n: number;
   title: string;
-  concept: string;
+  difficulty: 'Medium' | 'Hard' | 'Expert';
   file: string;
-  task: string;
+  expected: string;
+  actual: string;
   Buggy: ComponentType;
+  // solution-only (undefined on main):
   Solution?: ComponentType;
+  concept?: string;
   why?: string;
   before?: string;
   after?: string;
@@ -27,50 +30,56 @@ export type Challenge = {
 export const challenges: Challenge[] = [
   {
     n: 1,
-    title: 'Make the list grow',
-    concept: 'Immutable state',
-    file: 'src/challenges/01-immutable-state.tsx',
-    task: 'Clicking “Add item” does nothing on screen. Fix the update so the list grows.',
-    Buggy: C01,
+    title: 'Shopping cart',
+    difficulty: 'Medium',
+    file: 'src/challenges/challenge-1.tsx',
+    expected: 'The +/− buttons change an item’s quantity and the Total updates.',
+    actual: 'Clicking them does nothing on screen.',
+    Buggy: C1,
   },
   {
     n: 2,
-    title: 'Load the right user',
-    concept: 'useEffect deps',
-    file: 'src/challenges/02-effect-deps.tsx',
-    task: 'Picking a different user doesn’t change the name. Make the name follow the selected id.',
-    Buggy: C02,
+    title: 'User search',
+    difficulty: 'Medium',
+    file: 'src/challenges/challenge-2.tsx',
+    expected: 'Results always match the text currently in the box.',
+    actual: 'Typing quickly sometimes shows stale results for an earlier keystroke.',
+    Buggy: C2,
   },
   {
     n: 3,
-    title: 'Type your name',
-    concept: 'Controlled input',
-    file: 'src/challenges/03-controlled-input.tsx',
-    task: 'The input is frozen — typing does nothing. Make it update the greeting live.',
-    Buggy: C03,
+    title: 'Live metric',
+    difficulty: 'Hard',
+    file: 'src/challenges/challenge-3.tsx',
+    expected: 'Each second the value increases by the currently-selected multiplier.',
+    actual: 'After changing the multiplier, it keeps using the original ×1.',
+    Buggy: C3,
   },
   {
     n: 4,
-    title: 'Tick every second',
-    concept: 'Stale closure',
-    file: 'src/challenges/04-stale-closure.tsx',
-    task: 'The counter is stuck at 1. Make it count up every second.',
-    Buggy: C04,
+    title: 'Directory',
+    difficulty: 'Hard',
+    file: 'src/challenges/challenge-4.tsx',
+    expected: 'After filtering, “Select” highlights the person on that row.',
+    actual: 'With a filter active, “Select” highlights the wrong person.',
+    Buggy: C4,
   },
   {
     n: 5,
-    title: 'Keep notes with their fruit',
-    concept: 'List keys',
-    file: 'src/challenges/05-list-keys.tsx',
-    task: 'Type a note, then Shuffle — the note stays with the position. Make it follow the item.',
-    Buggy: C05,
+    title: 'Todo list',
+    difficulty: 'Hard',
+    file: 'src/challenges/challenge-5.tsx',
+    expected: '“Items left” always equals the number of unchecked todos.',
+    actual: 'Toggling a todo works, but “Items left” never changes.',
+    Buggy: C5,
   },
   {
     n: 6,
-    title: 'No stray “0”',
-    concept: 'Conditional render',
-    file: 'src/challenges/06-conditional-render.tsx',
-    task: 'When the cart is empty a “0” shows up. Render the list when non-empty and nothing when empty.',
-    Buggy: C06,
+    title: 'Auto-save',
+    difficulty: 'Expert',
+    file: 'src/challenges/challenge-6.tsx',
+    expected: '600ms after you stop typing, “Auto-saved” shows exactly what’s in the box.',
+    actual: 'It saves stale text — roughly one keystroke behind.',
+    Buggy: C6,
   },
 ];
