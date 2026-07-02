@@ -65,10 +65,10 @@ export const challenges: Challenge[] = [
     Buggy: C2,
   },
   {
-    n: 3, group: SINGLE, title: 'Live metric', difficulty: 'Hard',
+    n: 3, group: SINGLE, title: 'Counter (class)', difficulty: 'Medium',
     file: 'src/challenges/challenge-3.tsx',
-    expected: 'Each second the value increases by the currently-selected multiplier.',
-    actual: 'After changing the multiplier, it keeps using the original ×1.',
+    expected: 'The “Add 3” button increases the count by 3.',
+    actual: 'Each click only increases it by 1.',
     Buggy: C3,
   },
   {
@@ -86,10 +86,10 @@ export const challenges: Challenge[] = [
     Buggy: C5,
   },
   {
-    n: 6, group: SINGLE, title: 'Auto-save', difficulty: 'Expert',
+    n: 6, group: SINGLE, title: 'Greeting (class)', difficulty: 'Medium',
     file: 'src/challenges/challenge-6.tsx',
-    expected: '600ms after you stop typing, “Auto-saved” shows exactly what’s in the box.',
-    actual: 'It saves stale text — roughly one keystroke behind.',
+    expected: 'Typing your name updates the greeting live.',
+    actual: 'Typing throws an error and nothing updates (check the console).',
     Buggy: C6,
   },
 
@@ -129,17 +129,17 @@ export const challenges: Challenge[] = [
     Buggy: CM5,
   },
   {
-    n: 12, group: COMPOSED, title: 'User + posts', difficulty: 'Expert',
+    n: 12, group: COMPOSED, title: 'User + posts (class)', difficulty: 'Hard',
     file: 'src/challenges/composed-6.tsx',
-    expected: 'Posts re-fetch only when you switch users (watch the fetches counter).',
-    actual: 'Posts re-fetch constantly, even when the user hasn’t changed.',
+    expected: 'Picking a different user loads that user’s posts.',
+    actual: 'The header changes but the posts stay on the first user.',
     Buggy: CM6,
   },
   {
-    n: 13, group: COMPOSED, title: 'Two widgets', difficulty: 'Expert',
+    n: 13, group: COMPOSED, title: 'Background ticker (class)', difficulty: 'Hard',
     file: 'src/challenges/composed-7.tsx',
-    expected: 'The Likes and Follows counters are completely independent.',
-    actual: 'Clicking one also changes the other.',
+    expected: 'Clicking “Stop” halts the ticking and the number stops rising.',
+    actual: 'After “Stop” the number keeps going up.',
     Buggy: CM7,
   },
 

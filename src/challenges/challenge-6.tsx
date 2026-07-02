@@ -1,29 +1,25 @@
-import { useState, useRef } from 'react';
+import { Component } from 'react';
 
-// TICKET — Auto-save
-// Expected: 600ms after you stop typing, "Auto-saved" shows exactly what's in
-//           the box.
-// Actual:   "Auto-saved" is stale — it shows the text as of roughly one
-//           keystroke ago (type "hello", it saves "hell").
-// Fix this component so it behaves as expected. Edit only this file.
+// TICKET — Greeting (class component)
+// Expected: typing your name updates the greeting live.
+// Actual:   typing throws an error and nothing updates (open the console).
+// This is a class component. Edit only this file.
 
-export default function Challenge6() {
-  const [text, setText] = useState('');
-  const [saved, setSaved] = useState('—');
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+type State = { name: string };
 
-  const onChange = (value: string) => {
-    setText(value);
-    if (timer.current) clearTimeout(timer.current);
-    timer.current = setTimeout(() => {
-      setSaved(text);
-    }, 600);
-  };
+export default class Challenge6 extends Component<Record<string, never>, State> {
+  state: State = { name: '' };
 
-  return (
-    <div>
-      <input value={text} placeholder="type, then pause…" onChange={(e) => onChange(e.target.value)} />
-      <p>Auto-saved: <strong>{saved}</strong></p>
-    </div>
-  );
+  handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    this.setState({ name: e.target.value });
+  }
+
+  render() {
+    return (
+      <div>
+        <input value={this.state.name} placeholder="type your name" onChange={this.handleChange} />
+        <p>Hello, <strong>{this.state.name || 'stranger'}</strong>!</p>
+      </div>
+    );
+  }
 }

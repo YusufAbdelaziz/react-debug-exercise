@@ -1,49 +1,39 @@
-import { useState } from 'react';
+import { Component, useState } from 'react';
 import { RenderBadge } from './_shared';
 
-// TICKET — Two independent widgets (multi-component)
-// Expected: the Likes counter and the Follows counter are completely independent.
-// Actual:   clicking one also changes the other, and a click doesn't always
-//           update the widget you clicked until the other one re-renders.
-// Both widgets share one small helper. Edit only this file.
+// TICKET — Background ticker (multi-component; Ticker is a class component)
+// Expected: clicking "Stop" halts the ticking and the number stops rising.
+// Actual:   after "Stop" the Ticker disappears but the number keeps going up.
+// Fix the Ticker class. Edit only this file.
 
-let sharedCount = 0;
+type TickerProps = { onTick: () => void };
 
-function useCounter() {
-  const [, forceRender] = useState(0);
-  const value = sharedCount;
-  const increment = () => {
-    sharedCount += 1;
-    forceRender((x) => x + 1);
-  };
-  return [value, increment] as const;
-}
+class Ticker extends Component<TickerProps> {
+  timer?: ReturnType<typeof setInterval>;
 
-function Likes() {
-  const [count, inc] = useCounter();
-  return (
-    <div>
-      <RenderBadge name="Likes" />
-      <button onClick={inc}>👍 Likes: {count}</button>
-    </div>
-  );
-}
+  componentDidMount() {
+    this.timer = setInterval(() => this.props.onTick(), 1000);
+  }
 
-function Follows() {
-  const [count, inc] = useCounter();
-  return (
-    <div>
-      <RenderBadge name="Follows" />
-      <button onClick={inc}>➕ Follows: {count}</button>
-    </div>
-  );
+  render() {
+    return (
+      <div>
+        <RenderBadge name="Ticker (class)" />
+        <p>Ticking every second…</p>
+      </div>
+    );
+  }
 }
 
 export default function Composed7() {
+  const [running, setRunning] = useState(true);
+  const [ticks, setTicks] = useState(0);
   return (
     <div>
-      <Likes />
-      <Follows />
+      <RenderBadge name="Parent" />
+      <p>Ticks: <strong>{ticks}</strong></p>
+      <button onClick={() => setRunning((r) => !r)}>{running ? 'Stop' : 'Start'}</button>
+      {running && <Ticker onTick={() => setTicks((t) => t + 1)} />}
     </div>
   );
 }

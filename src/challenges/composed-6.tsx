@@ -1,12 +1,10 @@
-import { useState, useEffect } from 'react';
+import { Component, useState } from 'react';
 import { RenderBadge } from './_shared';
 
-// TICKET — User + posts (multi-component)
-// Expected: the posts should only be re-fetched when you switch users.
-//           (Watch the "fetches" counter — it should stay put between switches.)
-// Actual:   the posts re-fetch constantly (every ~1.5s) even when the user
-//           hasn't changed.
-// The child fetches based on something the parent hands it. Edit only this file.
+// TICKET — User + posts (multi-component; Posts is a class component)
+// Expected: picking a different user loads that user's posts.
+// Actual:   the header changes but the posts stay on the first user.
+// The parent is fine — fix the Posts class. Edit only this file.
 
 const NAMES: Record<number, string> = { 1: 'Ada', 2: 'Grace', 3: 'Linus' };
 
@@ -16,50 +14,38 @@ function fakeFetchPosts(userId: number): Promise<string[]> {
   );
 }
 
-function Posts({ user }: { user: { id: number; name: string } }) {
-  const [posts, setPosts] = useState<string[]>([]);
-  const [fetches, setFetches] = useState(0);
+type PostsProps = { userId: number };
+type PostsState = { posts: string[] };
 
-  useEffect(() => {
-    let active = true;
-    fakeFetchPosts(user.id).then((p) => {
-      if (active) {
-        setPosts(p);
-        setFetches((f) => f + 1);
-      }
-    });
-    return () => {
-      active = false;
-    };
-  }, [user]);
+class Posts extends Component<PostsProps, PostsState> {
+  state: PostsState = { posts: [] };
 
-  return (
-    <div>
-      <RenderBadge name="Posts" />
-      <p>Posts for {user.name} — <strong>fetches: {fetches}</strong></p>
-      <ul>{posts.map((p) => <li key={p}>{p}</li>)}</ul>
-    </div>
-  );
+  componentDidMount() {
+    fakeFetchPosts(this.props.userId).then((posts) => this.setState({ posts }));
+  }
+
+  render() {
+    return (
+      <div>
+        <RenderBadge name="Posts (class)" />
+        <p>Posts for <strong>{NAMES[this.props.userId]}</strong>:</p>
+        <ul>{this.state.posts.map((p) => <li key={p}>{p}</li>)}</ul>
+      </div>
+    );
+  }
 }
 
 export default function Composed6() {
   const [userId, setUserId] = useState(1);
-  const [, force] = useState(0);
-
-  // Simulates unrelated state elsewhere on the page updating periodically.
-  useEffect(() => {
-    const t = setInterval(() => force((x) => x + 1), 1500);
-    return () => clearInterval(t);
-  }, []);
-
-  const user = { id: userId, name: NAMES[userId] };
-
   return (
     <div>
       <RenderBadge name="UserPage" />
-      <button onClick={() => setUserId((id) => (id % 3) + 1)}>Next user</button>
-      <p>Current user: <strong>{user.name}</strong></p>
-      <Posts user={user} />
+      <div className="row">
+        {[1, 2, 3].map((id) => (
+          <button key={id} onClick={() => setUserId(id)}>{NAMES[id]}</button>
+        ))}
+      </div>
+      <Posts userId={userId} />
     </div>
   );
 }
