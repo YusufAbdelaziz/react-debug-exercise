@@ -42,6 +42,7 @@ export type Challenge = {
   before?: string;
   after?: string;
   notes?: string;
+  hints?: string[]; // interviewer-only; populated on the solution branch
 };
 
 const SINGLE = 'Single-component';

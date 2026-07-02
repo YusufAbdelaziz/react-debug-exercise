@@ -51,6 +51,15 @@ export default function ChallengeCard({ c }: { c: Challenge }) {
         Edit <code>{c.file}</code> and save — this demo hot-reloads instantly.
       </p>
 
+      {c.hints && c.hints.length > 0 && (
+        <details className="hints">
+          <summary>Hints for the candidate ({c.hints.length}) — give in order</summary>
+          <ol>
+            {c.hints.map((h, i) => <li key={i}>{h}</li>)}
+          </ol>
+        </details>
+      )}
+
       <div className={showSolution ? 'demo demo-good' : 'demo demo-bad'}>
         <div className="demo-tag">{showSolution ? 'SOLUTION' : 'LIVE'}</div>
         <Active />
