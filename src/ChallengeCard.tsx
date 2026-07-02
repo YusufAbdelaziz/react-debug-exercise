@@ -9,6 +9,7 @@ import type { Challenge } from './challenges';
 
 export default function ChallengeCard({ c }: { c: Challenge }) {
   const [showSolution, setShowSolution] = useState(false);
+  const [revealed, setRevealed] = useState(0);
   const hasSolution = !!c.Solution;
   const Active = showSolution && c.Solution ? c.Solution : c.Buggy;
 
@@ -52,12 +53,24 @@ export default function ChallengeCard({ c }: { c: Challenge }) {
       </p>
 
       {c.hints && c.hints.length > 0 && (
-        <details className="hints">
-          <summary>Hints for the candidate ({c.hints.length}) — give in order</summary>
-          <ol>
-            {c.hints.map((h, i) => <li key={i}>{h}</li>)}
-          </ol>
-        </details>
+        <div className="hints">
+          <div className="hints-title">Hints for the candidate — reveal one at a time</div>
+          {revealed > 0 && (
+            <ol>
+              {c.hints.slice(0, revealed).map((h, i) => <li key={i}>{h}</li>)}
+            </ol>
+          )}
+          {revealed < c.hints.length ? (
+            <button className="hint-btn" onClick={() => setRevealed((r) => r + 1)}>
+              {revealed === 0 ? `Reveal first hint (${c.hints.length} total)` : `Reveal next hint (${revealed}/${c.hints.length} shown)`}
+            </button>
+          ) : (
+            <span className="hints-done">All {c.hints.length} hints shown</span>
+          )}
+          {revealed > 0 && (
+            <button className="hint-btn ghost" onClick={() => setRevealed(0)}>Hide</button>
+          )}
+        </div>
       )}
 
       <div className={showSolution ? 'demo demo-good' : 'demo demo-bad'}>

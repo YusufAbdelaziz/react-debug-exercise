@@ -89,10 +89,17 @@ body, .bug, .demo, .theme-btn, .cat, .chip, .sw, .demo button, .demo input, .sev
   border-left: 3px solid var(--brand); background: var(--soft); color: var(--ink);
 }
 
-.hints { margin: 6px 0 2px; font-size: 12px; }
-.hints summary { cursor: pointer; color: var(--brand); font-weight: 600; }
-.hints ol { margin: 6px 0 0 18px; color: var(--muted); }
-.hints li { margin: 3px 0; }
+.hints { margin: 8px 0 2px; font-size: 12px; border: 1px dashed var(--line); border-radius: 8px; padding: 8px 10px; }
+.hints-title { color: var(--brand); font-weight: 600; margin-bottom: 6px; }
+.hints ol { margin: 4px 0 8px 18px; color: var(--muted); }
+.hints li { margin: 4px 0; }
+.hint-btn {
+  border: 1px solid var(--line); background: var(--btn); color: var(--ink);
+  padding: 3px 10px; border-radius: 7px; cursor: pointer; font-size: 12px; margin-right: 6px;
+}
+.hint-btn:hover { border-color: var(--brand); }
+.hint-btn.ghost { color: var(--muted); }
+.hints-done { font-size: 12px; color: var(--muted); margin-right: 6px; }
 
 /* table used by the Data table build challenge */
 .tbl { border-collapse: collapse; font-size: 13px; margin-top: 4px; }
